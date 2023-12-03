@@ -18,7 +18,6 @@ const game = () => {
     }
     changeScreen(startButton, 'intro', 'game-resource-update');
     
-    changeScreen();
 };
 
 game();
