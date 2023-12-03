@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main-game.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="navigation">
+        <nav>
+            <ul>
+                <li><a href="main-page.html">Play!</a></li>
+                <li><a href="">Game rule</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="game">
+    <div class="player-resources">
+        <div class="player-money">
+            <h2>Money left (EUR)</h2>
+            <p class="money">1000</p>
+        </div>
+
+        <div class="player-range">
+            <h2>Range left (km)</h2>
+            <p class="range">2000</p>
+        </div>
+    </div>
+
+    <div class="intro">
+        <h1>National treasure hunt!</h1>
+        <p>Please remember this ICAO: <span>*icao of the starting airport*</span>. Return the infamous Mona Lisa
+            here once you find it! </p>
+        <form>
+            <label for="screen-name">Player name:</label>
+            <input type="text" id="screen-name" name="screen-name"><br><br>
+            <input type="submit" class="submit-button" id="start-button" value="Start game">
+        </form>
+    </div>
+
+    <div class="game-resource-update fadeOut">
+        <h2 class="info-display">Do you want to buy fuel? 1 EUR = 2km of range</h2>
+        <form>
+            <label for="resource-exchange">Enter the amount (0 if you don't want to purchase anything):</label>
+            <input type="text" id="resource-exchange" name="resource-exchange"><br><br>
+            <input type="submit" class="submit-button" id="buy-button" value="Buy!">
+        </form>
+
+    </div>
+
+    <div class="game-destination fadeOut">
+        <h2 class="info-display">Enter the ICAO code</h2>
+        <p>Airport in range:</p>
+        <ul>
+            <!--Concatinate airports in range here in javascript-->
+            <li>Example 1</li>
+            <li>Example 2</li>
+        </ul>
+        <form>
+            <label for="icao-code"></label>
+            <input type="text" id="icao-code"/>
+            <input type="submit" class="submit-button" id="submit-icao-button" value="Submit">
+        </form>
+    </div>
+
+    <div class="game-secret-box fadeOut">
+        <h2 class="info-display">You have arrived at <span>*name of the airport*</span>. Do you want to open secret box
+            for 100 EUR or 50 km range?</h2>
+        <button id="money">100 EUR</button>
+        <button id="range">50 km</button>
+        <button id="skip">Skip</button>
+    </div>
+
+    <div class="game-win fadeOut">
+        <h2>You win!</h2>
+        <button id="restart">Restart the game</button>
+    </div>
+
+</section>
+<!--<script src="main-game.js"></script>-->
+</body>
+</html>
