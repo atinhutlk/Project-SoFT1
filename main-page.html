@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Main game</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=VT323&display=swap" rel="stylesheet">
     <script src="main-game.js" defer></script>
 </head>
 <body>
@@ -12,7 +16,7 @@
         <nav>
             <ul>
                 <li><a href="main-page.html">Play!</a></li>
-                <li><a href="">Game rule</a></li>
+                <li><a href="Story.html">Game rule</a></li>
             </ul>
         </nav>
     </div>
@@ -43,7 +47,7 @@
     </div>
 
     <div class="game-resource-update fadeOut">
-        <h2 class="info-display">Do you want to buy fuel? 1 EUR = 2km of range</h2>
+        <p class="info-display">Do you want to buy fuel? 1 EUR = 2km of range</p>
         <form>
             <label for="resource-exchange">Enter the amount (0 if you don't want to purchase anything):</label>
             <input type="text" id="resource-exchange" name="resource-exchange"><br><br>
@@ -53,16 +57,15 @@
     </div>
 
     <div class="game-destination fadeOut">
-        <h2 class="info-display">Enter the ICAO code</h2>
-        <p>Airport in range:</p>
+        <h2>Airports in range:</h2>
         <ul>
             <!--Concatinate airports in range here in javascript-->
             <li>Example 1</li>
             <li>Example 2</li>
         </ul>
         <form>
-            <label for="icao-code"></label>
-            <input type="text" id="icao-code"/>
+            <label for="icao-code">Enter the ICAO code: </label>
+            <input type="text" id="icao-code"/><br><br>
             <input type="submit" class="submit-button" id="submit-icao-button" value="Submit">
         </form>
     </div>
@@ -70,14 +73,16 @@
     <div class="game-secret-box fadeOut">
         <h2 class="info-display">You have arrived at <span>*name of the airport*</span>. Do you want to open secret box
             for 100 EUR or 50 km range?</h2>
-        <button id="money">100 EUR</button>
-        <button id="range">50 km</button>
-        <button id="skip">Skip</button>
+        <div class="game-secret-box-buttons">
+            <button id="money">100 EUR</button>
+            <button id="range">50 km</button>
+            <button id="skip">Skip</button>
+        </div>
     </div>
 
     <div class="game-win fadeOut">
-        <h2>You win!</h2>
-        <button id="restart">Restart the game</button>
+        <h1>You win!</h1>
+        <button id="restart-button">Restart</button>
     </div>
 
 </section>

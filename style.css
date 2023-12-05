@@ -8,6 +8,18 @@ rustic color palette:
 
 Test box: border: solid 3px black;
 */
+* {
+    font-family: 'VT323', sans-serif;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+form, p {
+    font-size: 28px;
+}
+
 
 header {
     width: 100%;
@@ -17,7 +29,7 @@ header {
     right: 0;
     left: 0;
     height: 100px;
-    /*justify-content: space-between;*/
+    justify-content: center;
 }
 
 .navigation,
@@ -25,26 +37,42 @@ header,
 .game,
 .player-resources,
 .intro,
-.game-resource-update,
 .game-destination,
 .game-secret-box,
 .game-win {
     display: flex;
 }
 
+.navigation {
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation li {
+    display: inline-block;
+    padding: 50px;
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
 /*this to be removed later, FOR TESTING*/
 .intro,
-.game-resource-update,
 .game-destination,
 .game-secret-box,
 .game-win {
     flex-direction: column;
     align-items: center;
-    border: solid 3px black;
+    /*border: solid 3px black;*/
 }
 
 body {
     background-color: #e3d6ab;
+    text-align: center;
 }
 
 .game {
@@ -57,12 +85,12 @@ body {
     align-items: center;
 }
 
-.player-resources h2 {
+h2 {
     font-size: 30px;
 }
 .player-resources p {
     text-align: center;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 /*fading effect*/
@@ -76,8 +104,58 @@ div.fadeIn {
     pointer-events: all;
 }
 
+#start-button,
+#buy-button,
+#submit-icao-button,
+#restart-button,
+button {
+    border: none;
+    background-color: #778979;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+    font-family: 'Henny Penny', sans-serif;
+}
 
+form {
+    text-align: center;
 
+}
 
+input {
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
+    font-size: 25px;
+}
 
+.game-resource-update,
+.game-destination,
+.game-secret-box,
+.game-win {
+    position: absolute;
+}
 
+.game-resource-update {
+    top: 40%;
+    left: 19%;
+}
+.game-destination {
+    top: 35%;
+    left: 32%;
+}
+
+.game-secret-box {
+    top: 40%;
+    left: 10%;
+}
+
+.game-secret-box-buttons {
+    align-items: center;
+}
+
+.game-win {
+    top: 35%;
+    left: 43%;
+}
