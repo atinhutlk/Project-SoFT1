@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Main game</title>
-    <link rel="stylesheet" href="styletest.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=VT323&display=swap" rel="stylesheet">
     <script src="JVtest.js" defer></script>
 </head>
 <body>
@@ -11,7 +15,7 @@
     <div class="navigation">
         <nav>
             <ul>
-                <li><a href="main-page.html">Play!</a></li>
+                <li><a href="HTMLtest.html">Play!</a></li>
                 <li><a href="Story.html">Game rule</a></li>
             </ul>
         </nav>
@@ -19,6 +23,7 @@
 </header>
 
 <section class="game">
+    <!-- Player Resources -->
     <div class="player-resources">
         <div class="player-money">
             <h2>Money left (EUR)</h2>
@@ -31,10 +36,10 @@
         </div>
     </div>
 
+    <!-- Game Introduction -->
     <div class="intro">
         <h1>National treasure hunt!</h1>
-        <p>Please remember this ICAO: <span>*icao of the starting airport*</span>. Return the infamous Mona Lisa
-            here once you find it! </p>
+        <p>Please remember this ICAO: <span id="startAirportICAO">LFPG</span>. Return the infamous Mona Lisa here once you find it! </p>
         <form>
             <label for="screen-name">Player name:</label>
             <input type="text" id="screen-name" name="screen-name"><br><br>
@@ -42,8 +47,9 @@
         </form>
     </div>
 
+    <!-- Game Resource Update -->
     <div class="game-resource-update fadeOut">
-        <h2 class="info-display">Do you want to buy fuel? 1 EUR = 2km of range</h2>
+        <p class="info-display">Do you want to buy fuel? 1 EUR = 2km of range</p>
         <form>
             <label for="resource-exchange">Enter the amount (0 if you don't want to purchase anything):</label>
             <input type="text" id="resource-exchange" name="resource-exchange"><br><br>
@@ -51,9 +57,10 @@
         </form>
     </div>
 
+    <!-- Game Destination -->
     <div class="game-destination fadeOut">
         <h2 class="info-display">Enter the ICAO code</h2>
-        <p>Airport in range:</p>
+        <p>Airports in range:</p>
         <ul id="airports-list">
             <!-- Concatenate airports in range dynamically in JavaScript -->
         </ul>
@@ -67,24 +74,21 @@
         </form>
     </div>
 
+    <!-- Game Secret Box -->
     <div class="game-secret-box fadeOut">
-        <h2 class="info-display">You have arrived at <span>*name of the airport*</span>. Do you want to open secret box
+        <h2 class="info-display">You have arrived at <span id="currentAirportName">*name of the airport*</span>. Do you want to open secret box
             for 100 EUR or 50 km range?</h2>
         <button id="money">100 EUR</button>
         <button id="range">50 km</button>
         <button id="skip">Skip</button>
     </div>
 
+    <!-- Game Win -->
     <div class="game-win fadeOut">
         <h2>You win!</h2>
-        <button id="restart">Restart the game</button>
+        <button id="restart-button">Restart the game</button>
     </div>
 </section>
-
-<div id="modal" class="modal">
-    <p id="modal-message">Modal content goes here...</p>
-    <button id="modal-close">Close</button>
-</div>
 
 </body>
 </html>
