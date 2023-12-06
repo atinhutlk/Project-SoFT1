@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
     async function handleSecretBox(event) {
         const clickedButton = event.target.id;
         if (clickedButton === "money") {
-            const response = await fetch('/handle_money_button', { method: 'GET' }); // Adjust the endpoint based on your server
+            const response = await fetch('/handle_money_button', { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Error handling money button');
             }
@@ -122,16 +122,15 @@ document.addEventListener("DOMContentLoaded", function () {
             // Replace this comment with your logic
             alert("Player chose 100 EUR. Implement your logic here.");
         } else if (clickedButton === "range") {
-            const response = await fetch('/handle_range_button', { method: 'GET' }); // Adjust the endpoint based on your server
+            const response = await fetch('/handle_range_button', { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Error handling range button');
             }
 
             // Handle the case when the player chooses 50 km
-            // Replace this comment with your logic
             alert("Player chose 50 km. Implement your logic here.");
         } else if (clickedButton === "skip") {
-            const response = await fetch('/handle_skip_button', { method: 'GET' }); // Adjust the endpoint based on your server
+            const response = await fetch('/handle_skip_button', { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Error handling skip button');
             }
@@ -143,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function restartGame() {
-        const response = await fetch('/restart_game', { method: 'POST' }); // Adjust the endpoint based on your server
+        const response = await fetch('/restart_game', { method: 'POST' });
         if (!response.ok) {
             throw new Error('Error restarting game');
         }
