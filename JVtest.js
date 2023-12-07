@@ -1,3 +1,4 @@
+const apiUrl = 'http://127.0.0.1:3000/';
 document.addEventListener("DOMContentLoaded", function () {
     const startMoney = 1000;
     const startRange = 2000;
