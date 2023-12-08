@@ -1,10 +1,8 @@
 import json
 import os
-
 import mysql.connector
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
 
 from functions import (
     get_airports,
@@ -17,18 +15,21 @@ from functions import (
     airports_in_range,
     update_location,
 )
+
+from story import (
+    get_story_plain_text
+)
 app = Flask(__name__)
 cors = CORS(app)
 
 connection = mysql.connector.connect(
-    host='127.0.0.1',
-    port=3306,
-    database='flight_game',
-    user='dbuser',
-    password='pass_word',
-    autocommit=True
+    host = '127.0.0.1',
+    port = 3306,
+    database ='demogame2',
+    user ='root',
+    password ='metropolia',
+    autocommit = True
 )
-
 @app.route('/get_airports', methods=['GET'])
 def get_airports_route():
     airports = get_airports()

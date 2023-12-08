@@ -1,7 +1,10 @@
 import mysql.connector
 import random
+import os
 from geopy import distance
+from dotenv import load_dotenv
 
+load_dotenv()
 
 conn = mysql.connector.connect(
     host = 'localhost',

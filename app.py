@@ -1,7 +1,9 @@
-from flask import Flask, jsonify, request
-from flask import CORS
+import mysql.connector
+from flask import Flask,request,jsonify
+from flask_cors import CORS
 
-from gametest import (
+
+from backend.functions import (
     get_airports,
     start_airport,
     get_goals,
@@ -15,6 +17,15 @@ from gametest import (
 
 app = Flask(__name__)
 CORS(app)
+
+connection = mysql.connector.connect(
+    host = '127.0.0.1',
+    port = 3306,
+    database ='demogame2',
+    user ='root',
+    password ='metropolia',
+    autocommit = True
+)
 
 @app.route('/get_airports', methods=['GET'])
 def get_airports_route():
@@ -76,4 +87,4 @@ def update_location_route():
     return jsonify({'message': 'Location updated successfully'})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(use_reloader=True, host="127.0.0.1", port=3000)
