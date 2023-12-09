@@ -1,4 +1,3 @@
-const apiUrl = 'http://127.0.0.1:5000/';
 import service from "./service.js";
 import toast from "./toast.js";
 import { DEFAULT_MONEY, DEFAULT_RANGE, START_AIRPORT_ICAO } from "./env.js";

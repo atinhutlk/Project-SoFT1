@@ -3,28 +3,24 @@ import random
 import os
 from geopy import distance
 from dotenv import load_dotenv
-
 load_dotenv()
 
 conn = mysql.connector.connect(
-    host = 'localhost',
-    port = 3306,
-    database ='demogame2',
-    user ='root',
-    password ='metropolia',
+    host = os.getenv("DB_HOST"),
+    port = os.getenv("DB_PORT"),
+    database = "demogame2",
+    user = os.getenv("DB_USERNAME"),
+    password = os.getenv("DB_PASSWORD"),
     autocommit = True
 )
 
-# FUNCTIONS
-
-# select 30 airports for the game
 def get_airports():
     sql = """SELECT iso_country, ident, name, type, latitude_deg, longitude_deg
-FROM airport
-WHERE continent = 'EU' 
-AND type='large_airport'
-ORDER by RAND()
-LIMIT 10;"""
+        FROM airport
+        WHERE continent = 'EU' 
+        AND type='large_airport'
+        ORDER by RAND()
+        LIMIT 10;"""
     cursor = conn.cursor(dictionary=True)
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -32,8 +28,8 @@ LIMIT 10;"""
 
 def start_airport():
     sql = """SELECT iso_country, ident, name, type, latitude_deg, longitude_deg 
-FROM airport 
-WHERE continent = 'EU' AND iso_country ='FR' AND type = 'large_airport' And ident = 'LFPG';"""
+    FROM airport 
+    WHERE continent = 'EU' AND iso_country ='FR' AND type = 'large_airport' And ident = 'LFPG';"""
     cursor = conn.cursor(dictionary=True)
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -77,8 +73,8 @@ def create_game(start_money, p_range, cur_airport, p_name, a_ports):
 # get airport info
 def get_airport_info(icao):
     sql = f'''SELECT iso_country, ident, name, latitude_deg, longitude_deg
-                  FROM airport
-                  WHERE ident = %s'''
+                FROM airport
+                WHERE ident = %s'''
     cursor = conn.cursor(dictionary=True)
     cursor.execute(sql, (icao,))
     result = cursor.fetchone()
@@ -99,14 +95,18 @@ def check_goal(g_id, cur_airport):
         return False
     return result
 
+# update location
+def update_location(icao, p_range, u_money, g_id):
+    sql = f'''UPDATE game SET location = %s, player_range = %s, money = %s WHERE id = %s'''
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(sql, (icao, p_range, u_money, g_id))
 
 # calculate distance between two airports
 def calculate_distance(current, target):
     start = get_airport_info(current)
     end = get_airport_info(target)
     return distance.distance((start['latitude_deg'], start['longitude_deg']),
-                             (end['latitude_deg'], end['longitude_deg'])).km
-
+                            (end['latitude_deg'], end['longitude_deg'])).km
 
 # get airports in range
 def airports_in_range(icao, a_ports, p_range):
@@ -116,13 +116,3 @@ def airports_in_range(icao, a_ports, p_range):
         if dist <= p_range and not dist == 0:
             in_range.append(a_port)
     return in_range
-
-
-
-# update location
-def update_location(icao, p_range, u_money, g_id):
-    sql = f'''UPDATE game SET location = %s, player_range = %s, money = %s WHERE id = %s'''
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute(sql, (icao, p_range, u_money, g_id))
-
-

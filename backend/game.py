@@ -1,4 +1,6 @@
-from .functions import (
+import story
+
+from functions import (
     get_airports,
     start_airport,
     get_goals,
@@ -22,9 +24,8 @@ while True:
     choice = input('Please choose: ')
 
     if choice == '2':
-        for line in story.getStory():
+        for line in story.get_story():
             print(line, end='')
-        continue
     elif choice == 'E':
         print('See You!')
         break
@@ -133,4 +134,3 @@ while True:
         print(f'''You have {money:.0f}EURO''')
         print(f'''Your range is {player_range:.0f}km''')
         break
-

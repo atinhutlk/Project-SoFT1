@@ -1,6 +1,3 @@
-import json
-import os
-import mysql.connector
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -19,17 +16,9 @@ from functions import (
 from story import (
     get_story_plain_text
 )
-app = Flask(__name__)
-cors = CORS(app)
 
-connection = mysql.connector.connect(
-    host = '127.0.0.1',
-    port = 3306,
-    database ='demogame2',
-    user ='root',
-    password ='metropolia',
-    autocommit = True
-)
+app = Flask(__name__)
+CORS(app)
 @app.route('/get_airports', methods=['GET'])
 def get_airports_route():
     airports = get_airports()
@@ -72,10 +61,10 @@ def calculate_distance_route(current, target):
     dist = calculate_distance(current, target)
     return jsonify({'distance': dist})
 
-@app.route('/airports_in_range/<icao>/<p_range>', methods=['GET'])
+@app.route('/airports_in_range/<icao>/<p_range>', methods=['POST'])
 def airports_in_range_route(icao, p_range):
-    a_ports = get_airports()
-    in_range = airports_in_range(icao, a_ports, float(p_range))
+    data = request.get_json()
+    in_range = airports_in_range(icao, data.get('airports'), float(p_range))
     return jsonify(in_range)
 
 @app.route('/update_location', methods=['POST'])
@@ -89,5 +78,9 @@ def update_location_route():
     update_location(icao, p_range, u_money, g_id)
     return jsonify({'message': 'Location updated successfully'})
 
+@app.route('/story', methods=['GET'])
+def get_story():
+    return jsonify({ 'story': get_story_plain_text()})
+
 if __name__ == "__main__":
-    app.run(use_reloader=True, host="127.0.0.1", port=3000)
+    app.run(use_reloader=True,host="0.0.0.0",port=5000)
