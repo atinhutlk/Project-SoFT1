@@ -1,4 +1,4 @@
-const apiUrl = 'http://127.0.0.1:3000/';
+const apiUrl = 'http://127.0.0.1:5000/';
 document.addEventListener("DOMContentLoaded", function () {
     const startMoney = 1000;
     const startRange = 2000;
@@ -38,8 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function getAirports() {
+        let urlGetAirports = apiUrl + 'get_airports';
         try {
-            const response = await fetch('/get_airports', { method: 'GET' });
+            const response = await fetch(urlGetAirports, { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Error retrieving airports');
             }
@@ -64,8 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
     async function buyFuel(event) {
         event.preventDefault();
         const fuelAmount = parseFloat(document.getElementById("resource-exchange").value);
+        let urlBuyFuel = apiUrl + 'buy_fuel';
         if (!isNaN(fuelAmount) && fuelAmount >= 0) {
-            const response = await fetch('/buy_fuel', {
+            const response = await fetch(urlBuyFuel, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,8 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
     async function submitDestination(event) {
         event.preventDefault();
         const selectedDestination = destinationInput.value;
+        let urlSubmitDestination = apiUrl + 'submit_destination';
         if (selectedDestination) {
-            const response = await fetch('/submit_destination', {
+            const response = await fetch(urlSubmitDestination, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,8 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function handleSecretBox(event) {
         const clickedButton = event.target.id;
+        let urlHandleMoney = apiUrl + 'handle_money_button';
+        let urlHandleRange = apiUrl + 'handle_range_button';
+        let urlHandleSkip = apiUrl + 'handle_skip_button';
         if (clickedButton === "money") {
-            const response = await fetch('/handle_money_button', { method: 'GET' });
+            const response = await fetch(urlHandleMoney, { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Error handling money button');
             }
@@ -123,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Replace this comment with your logic
             alert("Player chose 100 EUR. Implement your logic here.");
         } else if (clickedButton === "range") {
-            const response = await fetch('/handle_range_button', { method: 'GET' });
+            const response = await fetch(urlHandleRange, { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Error handling range button');
             }
@@ -131,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Handle the case when the player chooses 50 km
             alert("Player chose 50 km. Implement your logic here.");
         } else if (clickedButton === "skip") {
-            const response = await fetch('/handle_skip_button', { method: 'GET' });
+            const response = await fetch(urlHandleSkip, { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Error handling skip button');
             }
@@ -143,7 +149,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function restartGame() {
-        const response = await fetch('/restart_game', { method: 'POST' });
+        let urlRestart = apiUrl + 'restart_game';
+        const response = await fetch(urlRestart, { method: 'POST' });
         if (!response.ok) {
             throw new Error('Error restarting game');
         }
