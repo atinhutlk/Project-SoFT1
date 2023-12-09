@@ -1,240 +1,177 @@
-const apiUrl = 'http://127.0.0.1:5000/';
-import service from "./service.js";
-import toast from "./toast.js";
-import { DEFAULT_MONEY, DEFAULT_RANGE, START_AIRPORT_ICAO } from "./env.js";
-import spinner from "./spinner.js";
+const apiUrl = 'http://127.0.0.1:3000/';
+document.addEventListener("DOMContentLoaded", function () {
+    const startMoney = 1000;
+    const startRange = 2000;
+    const startAirportICAO = "LFPG";
 
-const airportNameDisplay = document.querySelector(".airport-name");
-const icaoDisplay = document.querySelector(".icao");
-const moneyDisplay = document.querySelector(".money");
-const rangeDisplay = document.querySelector(".range");
-const playerNameInput = document.getElementById("screen-name");
-const startButton = document.getElementById("start-button");
-const buyButton = document.getElementById("buy-button");
-const airportsList = document.querySelector("#airports-list");
-const destinationInput = document.getElementById("icao-code");
-const submitDestinationButton = document.getElementById("submit-icao-button");
-const secretBoxButtons = document.querySelectorAll(".game-secret-box-buttons");
-const restartButtons = document.querySelectorAll(".restart-button");
-const resourceExchange = document.getElementById("resource-exchange");
-const gameRule = document.getElementById("game-rule");
-const gameRuleModal = document.getElementById("game-rule-modal");
-const gameRuleBody = gameRuleModal.querySelector(".modal-body");
-const arivedAirportName = document.getElementById('arrivedAirportName');
+    let money = startMoney;
+    let range = startRange;
+    let currentAirportICAO = startAirportICAO;
 
-let money;
-let range;
-let currentAirportCode;
-let gameId;
-let isWon = false;
-let goal;
-let allAirports;
-let curAirportName
+    const moneyDisplay = document.querySelector(".money");
+    const rangeDisplay = document.querySelector(".range");
+    const playerNameInput = document.getElementById("screen-name");
+    const startButton = document.getElementById("start-button");
+    const buyButton = document.getElementById("buy-button");
+    const airportsList = document.querySelector(".game-destination ul");
+    const destinationInput = document.getElementById("icao-code");
+    const submitDestinationButton = document.getElementById("submit-icao-button");
+    const secretBoxButtons = document.querySelector(".game-secret-box-buttons");
+    const restartButton = document.getElementById("restart-button");
 
-startButton.addEventListener("click", startGame);
-buyButton.addEventListener("click", buyFuel);
-submitDestinationButton.addEventListener("click", submitDestination);
-secretBoxButtons.forEach(elm => {
-    elm.addEventListener("click", handleSecretBox);
-})
-restartButtons.forEach(restartButton => {
-    restartButton.addEventListener("click", main);
-})
-gameRule.addEventListener("click", showGameRule);
+    startButton.addEventListener("click", startGame);
+    buyButton.addEventListener("click", buyFuel);
+    submitDestinationButton.addEventListener("click", submitDestination);
+    secretBoxButtons.addEventListener("click", handleSecretBox);
+    restartButton.addEventListener("click", restartGame);
 
-async function startGame(event) {
-    event.preventDefault();
-    const playerName = playerNameInput.value;
-    if (!playerName) {
-        toast.error("Please enter a player name.");
-        return;
-    }
-    spinner.show();
-    allAirports = await service.getAirports();
-    const startAirport = await service.startAirport();
-    currentAirportCode = startAirport[0].ident;
-
-    gameId = await service.createGame({
-        'start_money': money,
-        'p_range': range,
-        'cur_airport': currentAirportCode,
-        'p_name': playerName,
-        'a_ports': allAirports
-    });
-    await intervalGame();
-    spinner.hide();
-}
-
-async function intervalGame() {
-    const airport = await service.getAirportInfo(currentAirportCode);
-    airportNameDisplay.textContent = airport.name;
-    curAirportName = airport.name;
-
-    goal = await service.checkGoal({ gameId: gameId.game_id, currentAirport: currentAirportCode });
-    if (goal) {
-        showElement("game-secret-box");
-        return;
-    }
-
-    if (money > 0 && !isWon) {
-        showElement("game-resource-update");
-        return;
-    }
-    const ap = await service.airportInRange({ icao: currentAirportCode, airports: allAirports, playerRange: range });
-    if (ap.length === 0) {
-        gameOver();
-        return;
-    }
-    await showAirportsInRange(ap);
-}
-
-async function showAirportsInRange(airports) {
-    airportsList.innerHTML = "";
-
-    for (const airport of airports) {
-        const listItem = document.createElement("li");
-        const distance = await service.calculateDistance(currentAirportCode, airport.ident);
-        listItem.textContent = `${airport.name} (ICAO: ${airport.ident}), distance: ${distance.distance}`;
-        airportsList.appendChild(listItem);
-    }
-    showElement("game-destination");
-}
-
-async function buyFuel(event) {
-    event.preventDefault();
-    const fuelAmount = parseFloat(resourceExchange.value);
-    if (isNaN(fuelAmount) || fuelAmount < 0) {
-        toast.error("Please enter a valid non-negative number for fuel.");
-        return;
-    }
-    if (fuelAmount > money) {
-        toast.error('You don\'t have enough money. ');
-        return;
-    }
-    range += fuelAmount * 2;
-    money -= fuelAmount;
-    updateDisplay();
-    spinner.show();
-    const ap = await service.airportInRange({ icao: currentAirportCode, airports: allAirports, playerRange: range });
-    if (ap.length === 0) {
-        gameOver();
-        return;
-    }
-    await showAirportsInRange(ap);
-    spinner.hide();
-}
-
-async function submitDestination(event) {
-    event.preventDefault();
-    const selectedDestination = destinationInput.value;
-    if (!selectedDestination) {
-        toast.error("Please enter a valid destination.");
-        return;
-    }
-    const dest = await service.calculateDistance(currentAirportCode, selectedDestination)
-    range -= dest.distance;
-    spinner.show();
-    await service.updateLocation({
-        'icao': selectedDestination,
-        'p_range': range,
-        'u_money': money,
-        'g_id': gameId.game_id
-    });
-    currentAirportCode = selectedDestination;
-    updateDisplay();
-    if (range < 0 || isWon) {
-        gameOver();
-    }
-    spinner.hide();
-    await intervalGame();
-    arivedAirportName.textContent = curAirportName;
-}
-
-async function handleSecretBox(event) {
-    const clickedButton = event.target.id;
-
-    if (clickedButton !== "skip") {
-        if (clickedButton === "money") {
-            money -= 100;
-        } else if (clickedButton === "range") {
-            range -= 50;
-        }
-            console.log(goal);
-        if (goal.money > 0) {
-            money += goal.money;
-            toast.success(`${goal.name}. Tha is worth ${goal.money}EURO`)
-        } else if (goal?.money === 0) {
-            isWon = true;
-            toast.success('Congurations! You found the Mona Lisa. Now go to start. You get 6000km in range from Interpool.')
-            range += 6000;
+    function startGame(event) {
+        event.preventDefault();
+        const playerName = playerNameInput.value;
+        if (playerName) {
+            alert(`Welcome, ${playerName}! Your adventure begins at ${startAirportICAO}.`);
+            showElement("game-resource-update");
+            getAirports(); // Call the function to get airports
         } else {
-            money /= 2;
-            toast.success('Oh no! You have been hacked. You lost half you money');
+            alert("Please enter a player name.");
         }
+    }
+
+    async function getAirports() {
+        try {
+            const response = await fetch('/get_airports', { method: 'GET' });
+            if (!response.ok) {
+                throw new Error('Error retrieving airports');
+            }
+            const airports = await response.json();
+            showAirportsInRange(airports);
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    }
+
+    function showAirportsInRange(airports) {
+        airportsList.innerHTML = "";
+
+        airports.forEach(airport => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${airport.name} (ICAO: ${airport.ident})`;
+            airportsList.appendChild(listItem);
+        });
+        showElement("game-destination");
+    }
+
+    async function buyFuel(event) {
+        event.preventDefault();
+        const fuelAmount = parseFloat(document.getElementById("resource-exchange").value);
+        if (!isNaN(fuelAmount) && fuelAmount >= 0) {
+            const response = await fetch('/buy_fuel', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fuelAmount }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error buying fuel');
+            }
+
+            const result = await response.json();
+
+            range += fuelAmount * 2;
+            money -= fuelAmount;
+            updateDisplay();
+            showElement("game-destination");
+        } else {
+            alert("Please enter a valid non-negative number for fuel.");
+        }
+    }
+
+    async function submitDestination(event) {
+        event.preventDefault();
+        const selectedDestination = destinationInput.value;
+        if (selectedDestination) {
+            const response = await fetch('/submit_destination', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ selectedDestination }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error submitting destination');
+            }
+
+            alert(`You have selected ${selectedDestination} as your destination.`);
+            showElement("game-secret-box");
+        } else {
+            alert("Please enter a valid destination.");
+        }
+    }
+
+    async function handleSecretBox(event) {
+        const clickedButton = event.target.id;
+        if (clickedButton === "money") {
+            const response = await fetch('/handle_money_button', { method: 'GET' });
+            if (!response.ok) {
+                throw new Error('Error handling money button');
+            }
+
+            // Handle the case when the player chooses 100 EUR
+            // Replace this comment with your logic
+            alert("Player chose 100 EUR. Implement your logic here.");
+        } else if (clickedButton === "range") {
+            const response = await fetch('/handle_range_button', { method: 'GET' });
+            if (!response.ok) {
+                throw new Error('Error handling range button');
+            }
+
+            // Handle the case when the player chooses 50 km
+            alert("Player chose 50 km. Implement your logic here.");
+        } else if (clickedButton === "skip") {
+            const response = await fetch('/handle_skip_button', { method: 'GET' });
+            if (!response.ok) {
+                throw new Error('Error handling skip button');
+            }
+
+            // Handle the case when the player skips
+            // Replace this comment with your logic
+            alert("Player skipped. Implement your logic here.");
+        }
+    }
+
+    async function restartGame() {
+        const response = await fetch('/restart_game', { method: 'POST' });
+        if (!response.ok) {
+            throw new Error('Error restarting game');
+        }
+
+        // Reset game variables and UI elements
+        money = startMoney;
+        range = startRange;
+        currentAirportICAO = startAirportICAO;
         updateDisplay();
-    }
-    if (money > 0 && !isWon) {
-        showElement("game-resource-update");
-        return;
+        showElement("intro");
     }
 
-    const ap = await service.airportInRange({ icao: currentAirportCode, airports: allAirports, playerRange: range });
-    if (ap.length === 0) {
-        gameOver();
-        return;
+    function showElement(elementClass) {
+        const elements = document.querySelectorAll('.game-resource-update, .game-destination, .game-secret-box, .game-win, .game-rules, .intro');
+        elements.forEach(element => {
+            element.classList.add('fadeOut');
+        });
+
+        const targetElement = document.querySelector(`.${elementClass}`);
+        if (targetElement) {
+            targetElement.classList.remove('fadeOut');
+        }
     }
-    showAirportsInRange(ap);
-}
 
-function showElement(elementClass) {
-    const elements = document.querySelectorAll(
-        ".game-resource-update, .game-destination, .game-secret-box, .game-win, .game-rules, .intro, .game-lost, .out-range",
-    );
-    elements.forEach((element) => {
-        element.classList.add("fadeOut");
-    });
-
-    const targetElement = document.querySelector(`.${elementClass}`);
-    if (targetElement) {
-        targetElement.classList.remove("fadeOut");
+    function updateDisplay() {
+        moneyDisplay.textContent = money.toFixed(0);
+        rangeDisplay.textContent = range.toFixed(0);
     }
-}
 
-function updateDisplay() {
-    moneyDisplay.textContent = money.toFixed(0);
-    rangeDisplay.textContent = range.toFixed(0);
-    icaoDisplay.textContent = currentAirportCode;
-}
-
-function showGameRule() {
-    spinner.show();
-    service
-        .getStory()
-        .then(({ story }) => {
-            spinner.hide();
-            const myModal = new bootstrap.Modal(gameRuleModal);
-            myModal.show();
-            gameRuleBody.textContent = story;
-        })
-        .catch(() => spinner.hide());
-}
-
-function gameOver() {
-    if (isWon) {
-        showElement("game-win");
-    } else {
-        showElement("game-lost");
-    }
-    spinner.hide();
-}
-
-function main() {
-    money = DEFAULT_MONEY;
-    range = DEFAULT_RANGE;
-    currentAirportCode = START_AIRPORT_ICAO;
     showElement("intro");
-    updateDisplay();
-}
-
-main();
-
+});
