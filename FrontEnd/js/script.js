@@ -16,30 +16,33 @@ const submitDestinationButton = document.getElementById("submit-icao-button");
 const secretBoxButtons = document.querySelectorAll(".game-secret-box-buttons");
 const restartButtons = document.querySelectorAll(".restart-button");
 const resourceExchange = document.getElementById("resource-exchange");
-const gameRule = document.getElementById("game-rule");
-const gameRuleModal = document.getElementById("game-rule-modal");
-const gameRuleBody = gameRuleModal.querySelector(".modal-body");
-const arivedAirportName = document.getElementById('arrivedAirportName');
+const arrivedAirportName = document.getElementById('arrivedAirportName');
+const pointTemplate = document.getElementById('point-template');
+const map = document.getElementById('map');
 
 let money;
 let range;
 let currentAirportCode;
+let currentAirportName;
 let gameId;
 let isWon = false;
 let goal;
 let allAirports;
-let curAirportName
 
 startButton.addEventListener("click", startGame);
 buyButton.addEventListener("click", buyFuel);
-submitDestinationButton.addEventListener("click", submitDestination);
+submitDestinationButton.addEventListener("click", e => {
+    e.preventDefault();
+    const value = destinationInput.value;
+    if (!value) return;
+    submitDestination(value);
+});
 secretBoxButtons.forEach(elm => {
     elm.addEventListener("click", handleSecretBox);
 })
 restartButtons.forEach(restartButton => {
     restartButton.addEventListener("click", main);
 })
-gameRule.addEventListener("click", showGameRule);
 
 async function startGame(event) {
     event.preventDefault();
@@ -50,6 +53,7 @@ async function startGame(event) {
     }
     spinner.show();
     allAirports = await service.getAirports();
+    await showMap(allAirports);
     const startAirport = await service.startAirport();
     currentAirportCode = startAirport[0].ident;
 
@@ -61,13 +65,55 @@ async function startGame(event) {
         'a_ports': allAirports
     });
     await intervalGame();
+    updateDisplay();
     spinner.hide();
+}
+
+async function showMap(airports) {
+    let index = 0;
+    for (const airport of airports) {
+        console.log(airport);
+        const distance = await service.calculateDistance(currentAirportCode, airport.ident)
+        const tempClone = pointTemplate.content.cloneNode(true);
+        const point = tempClone.querySelector('.point')
+        const name = tempClone.querySelector('p');
+        const location = tempClone.querySelector('.location');
+        const d = distance.distance.toFixed(0)
+        new bootstrap.Popover(location, {
+            html: true,
+            annotation: true,
+            trigger: 'hover',
+            title: 'Airport Information',
+            content: function () {
+                return `
+                    <div class="d-flex">
+                        <span>ICAO:&nbsp;</span>
+                        <span>${airport.ident}</span>
+                    </div>
+
+                    <div class="d-flex">
+                        <span>Name:&nbsp;</span>
+                        <span>${airport.name}</span>
+                    </div>
+
+                    <div class="d-flex">
+                        <span>distance:&nbsp;</span>
+                        <span>${d}KM</span>
+                    </div>
+                `
+            }
+        });
+        point.classList.add(`point-${++index}`)
+        name.textContent = airport.name;
+        name.title = airport.name;
+        map.appendChild(tempClone);
+    }
 }
 
 async function intervalGame() {
     const airport = await service.getAirportInfo(currentAirportCode);
-    airportNameDisplay.textContent = airport.name;
-    curAirportName = airport.name;
+    currentAirportName = airport.name;
+    airportNameDisplay.textContent = currentAirportName;
 
     goal = await service.checkGoal({ gameId: gameId.game_id, currentAirport: currentAirportCode });
     if (goal) {
@@ -79,6 +125,7 @@ async function intervalGame() {
         showElement("game-resource-update");
         return;
     }
+
     const ap = await service.airportInRange({ icao: currentAirportCode, airports: allAirports, playerRange: range });
     if (ap.length === 0) {
         gameOver();
@@ -89,11 +136,12 @@ async function intervalGame() {
 
 async function showAirportsInRange(airports) {
     airportsList.innerHTML = "";
-
     for (const airport of airports) {
+        const distance = await service.calculateDistance(currentAirportCode, airport.ident)
+        const d = distance.distance.toFixed(0)
         const listItem = document.createElement("li");
-        const distance = await service.calculateDistance(currentAirportCode, airport.ident);
-        listItem.textContent = `${airport.name} (ICAO: ${airport.ident}), distance: ${distance.distance}`;
+        listItem.style.textAlign = 'left';
+        listItem.textContent = `${airport.name} (ICAO: ${airport.ident}), distance: ${d}KM`;
         airportsList.appendChild(listItem);
     }
     showElement("game-destination");
@@ -123,13 +171,7 @@ async function buyFuel(event) {
     spinner.hide();
 }
 
-async function submitDestination(event) {
-    event.preventDefault();
-    const selectedDestination = destinationInput.value;
-    if (!selectedDestination) {
-        toast.error("Please enter a valid destination.");
-        return;
-    }
+async function submitDestination(selectedDestination) {
     const dest = await service.calculateDistance(currentAirportCode, selectedDestination)
     range -= dest.distance;
     spinner.show();
@@ -146,7 +188,7 @@ async function submitDestination(event) {
     }
     spinner.hide();
     await intervalGame();
-    arivedAirportName.textContent = curAirportName;
+    arrivedAirportName.textContent = currentAirportName;
 }
 
 async function handleSecretBox(event) {
@@ -158,10 +200,10 @@ async function handleSecretBox(event) {
         } else if (clickedButton === "range") {
             range -= 50;
         }
-            console.log(goal);
-        if (goal.money > 0) {
+
+        if (goal?.money > 0) {
             money += goal.money;
-            toast.success(`${goal.name}. Tha is worth ${goal.money}EURO`)
+            toast.success(`${goal.name}. That is worth ${goal.money}EURO.`)
         } else if (goal?.money === 0) {
             isWon = true;
             toast.success('Congurations! You found the Mona Lisa. Now go to start. You get 6000km in range from Interpool.')
@@ -203,19 +245,6 @@ function updateDisplay() {
     moneyDisplay.textContent = money.toFixed(0);
     rangeDisplay.textContent = range.toFixed(0);
     icaoDisplay.textContent = currentAirportCode;
-}
-
-function showGameRule() {
-    spinner.show();
-    service
-        .getStory()
-        .then(({ story }) => {
-            spinner.hide();
-            const myModal = new bootstrap.Modal(gameRuleModal);
-            myModal.show();
-            gameRuleBody.textContent = story;
-        })
-        .catch(() => spinner.hide());
 }
 
 function gameOver() {

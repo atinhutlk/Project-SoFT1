@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d3b7e4-eacb-43ce-9fa8-9e23cb8f4b7e" name="Changes" comment="Chores: Javascript file fetches the correct backend addresses">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HTMLtest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JVtest.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/styletest.css" beforeDir="false" />
+    <list default="true" id="d7d3b7e4-eacb-43ce-9fa8-9e23cb8f4b7e" name="Changes" comment="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js">
+      <change afterPath="$PROJECT_DIR$/FrontEnd/assets/images/location.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/assets/images/location2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/assets/images/map.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/assets/images/monalisa.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/html/start.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/html/Story.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/html/main-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/js/service.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/js/service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +28,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -46,6 +53,7 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -85,7 +93,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nhut Vo/OneDrive/Desktop/index.html&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nhut Vo/PycharmProjects/Project-Soft1/FrontEnd/assets/images&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -95,6 +103,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Nhut Vo\PycharmProjects\Project-Soft1\FrontEnd\assets\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Nhut Vo\PycharmProjects\Project-Soft1\FrontEnd" />
       <recent name="C:\Users\Nhut Vo\PycharmProjects\Project-Soft1\FrontEnd\js" />
@@ -176,9 +187,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+    <configuration name="Flask (backend/app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="Project-Soft1" />
-      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="target" value="$PROJECT_DIR$/backend/app.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -191,9 +202,9 @@
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Flask (backend/app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+    <configuration name="Flask" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="Project-Soft1" />
-      <option name="target" value="$PROJECT_DIR$/backend/app.py" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -223,7 +234,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flask server.Flask (app.py)" />
         <item itemvalue="JavaScript Debug.HTMLtest.html" />
         <item itemvalue="Flask server.Flask (backend/app.py)" />
         <item itemvalue="Python.app" />
@@ -245,7 +255,9 @@
       <workItem from="1702036724626" duration="9296000" />
       <workItem from="1702116609632" duration="75000" />
       <workItem from="1702116827349" duration="149000" />
-      <workItem from="1702118323617" duration="4366000" />
+      <workItem from="1702118323617" duration="8224000" />
+      <workItem from="1702300491909" duration="21000" />
+      <workItem from="1702304001594" duration="751000" />
     </task>
     <task id="LOCAL-00001" summary="Merge pull request #1 from atinhutlk/tu_development&#10;&#10;Feature: Basic front end interface design, and function to change the screen once a button is clicked">
       <option name="closed" value="true" />
@@ -375,7 +387,47 @@
       <option name="project" value="LOCAL" />
       <updated>1702133055598</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js">
+      <option name="closed" value="true" />
+      <created>1702133363815</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1702133363815</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js">
+      <option name="closed" value="true" />
+      <created>1702133372697</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1702133372697</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js">
+      <option name="closed" value="true" />
+      <created>1702133415085</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1702133415085</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js">
+      <option name="closed" value="true" />
+      <created>1702133426100</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1702133426100</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js">
+      <option name="closed" value="true" />
+      <created>1702133452347</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1702133452347</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,15 +448,16 @@
     <MESSAGE value="Merge pull request #1 from atinhutlk/tu_development&#10;&#10;Feature: Basic front end interface design, and function to change the screen once a button is clicked" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
     <MESSAGE value="Chores: Javascript file fetches the correct backend addresses" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chores: Javascript file fetches the correct backend addresses" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;JVtest.js" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Project_Soft1$game.coverage" NAME="game Coverage Results" MODIFIED="1702038703460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
     <SUITE FILE_PATH="coverage/Project_Soft1$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1702109534939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Project_Soft1$gametest_py.coverage" NAME="gametest.py Coverage Results" MODIFIED="1702036363561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Project_Soft1$app.coverage" NAME="app Coverage Results" MODIFIED="1702036743178" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
-    <SUITE FILE_PATH="coverage/Project_Soft1$Flask__backend_app_py_.coverage" NAME="Flask (backend/app.py) Coverage Results" MODIFIED="1702133211646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Project_Soft1$Flask__backend_app_py_.coverage" NAME="Flask (backend/app.py) Coverage Results" MODIFIED="1702284016367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Project_Soft1$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1702036357842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Project_Soft1$Flask__backend_server_py_.coverage" NAME="Flask (backend/server.py) Coverage Results" MODIFIED="1702132964157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Project_Soft1$Flask__backend_server_py_.coverage" NAME="Flask (backend/server.py) Coverage Results" MODIFIED="1702304672751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

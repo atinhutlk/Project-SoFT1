@@ -19,15 +19,6 @@ class Service {
         }
     }
 
-    async resetGame() {
-        try {
-            return await api.post("/restart_game");
-        } catch (e) {
-            console.error("Error restarting game");
-            throw e;
-        }
-    }
-
     async getStory() {
         return await api.get("/story");
     }
