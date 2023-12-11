@@ -9,27 +9,27 @@ rustic color palette:
 Test box: border: solid 3px black;
 */
 * {
-    font-family: 'VT323', sans-serif;
+	font-family: "VT323", sans-serif;
 }
 
 h1 {
-    font-size: 60px;
+	font-size: 60px;
 }
 
-form, p {
-    font-size: 28px;
+form,
+p {
+	font-size: 28px;
 }
-
 
 header {
-    width: 100%;
-    background-color: #d78258;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 100px;
-    justify-content: center;
+	width: 100%;
+	background-color: #d78258;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 100px;
+	justify-content: center;
 }
 
 .navigation,
@@ -40,24 +40,24 @@ header,
 .game-destination,
 .game-secret-box,
 .game-win {
-    display: flex;
+	display: flex;
 }
 
 .navigation {
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 }
 
 .navigation li {
-    display: inline-block;
-    padding: 50px;
-    font-size: 50px;
-    text-transform: uppercase;
+	display: inline-block;
+	padding: 50px;
+	font-size: 50px;
+	text-transform: uppercase;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+	text-decoration: none;
+	color: black;
 }
 
 /*this to be removed later, FOR TESTING*/
@@ -65,43 +65,43 @@ a {
 .game-destination,
 .game-secret-box,
 .game-win {
-    flex-direction: column;
-    align-items: center;
-    /*border: solid 3px black;*/
+	flex-direction: column;
+	align-items: center;
+	/*border: solid 3px black;*/
 }
 
 body {
-    background-color: #e3d6ab;
-    text-align: center;
+	background-color: #e3d6ab;
+	text-align: center;
 }
 
 .game {
-    flex-direction: column;
-    margin-top: 110px;
+	flex-direction: column;
+	margin-top: 110px;
 }
 
 .player-resources {
-    justify-content: space-around;
-    align-items: center;
+	justify-content: space-around;
+	align-items: center;
 }
 
 h2 {
-    font-size: 30px;
+	font-size: 30px;
 }
 .player-resources p {
-    text-align: center;
-    font-size: 30px;
+	text-align: center;
+	font-size: 30px;
 }
 
 /*fading effect*/
 div.fadeOut {
-    opacity: 0;
-    pointer-events: none;
+	opacity: 0;
+	pointer-events: none;
 }
 
 div.fadeIn {
-    opacity: 1;
-    pointer-events: all;
+	opacity: 1;
+	pointer-events: all;
 }
 
 #start-button,
@@ -109,53 +109,122 @@ div.fadeIn {
 #submit-icao-button,
 #restart-button,
 button {
-    border: none;
-    background-color: #778979;
-    width: 150px;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 5px;
-    font-family: 'Henny Penny', sans-serif;
+	border: none;
+	background-color: #778979;
+	width: 150px;
+	height: 50px;
+	font-size: 20px;
+	border-radius: 5px;
+	font-family: "Henny Penny", sans-serif;
 }
 
 form {
-    text-align: center;
-
+	text-align: center;
 }
 
 input {
-    height: 30px;
-    width: 200px;
-    border-radius: 5px;
-    font-size: 25px;
+	height: 30px;
+	width: 200px;
+	border-radius: 5px;
+	font-size: 25px;
 }
 
 .game-resource-update,
-.game-destination,
 .game-secret-box,
 .game-win {
-    position: absolute;
+	position: absolute;
 }
 
 .game-resource-update {
-    top: 40%;
-    left: 19%;
+	top: 40%;
+	left: 19%;
 }
 .game-destination {
-    top: 35%;
-    left: 32%;
+	/* top: 35%; */
+	/* left: 32%; */
+	top: 22%;
+}
+
+.game-destination .point {
+	position: absolute;
+	min-height: 73px;
+	height: fit-content;
+	display: flex;
+	align-items: flex-end;
+}
+
+.game-destination .point > .location {
+	position: absolute;
+	top: 9px;
+	left: 10px;
+	cursor: pointer;
+	background-image: url(../assets/images/location.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+}
+
+.game-destination .point-1 {
+	top: 150px;
+	left: 50px;
+}
+
+.game-destination .point-2 {
+	top: 10px;
+	left: 200px;
+}
+
+.game-destination .point-3 {
+	top: 50px;
+	left: 400px;
+}
+
+.game-destination .point-4 {
+	top: 300px;
+	left: 100px;
+}
+
+.game-destination .point-5 {
+	top: 300px;
+	left: 200px;
+}
+
+.game-destination .point-6 {
+	top: 200px;
+	left: 600px;
+}
+
+.game-destination .point-7 {
+	top: 350px;
+	left: 800px;
+}
+
+.game-destination .point-8 {
+	top: 10px;
+	left: 650px;
+}
+
+.game-destination .point-9 {
+	top: 150px;
+	left: 800px;
+}
+
+.game-destination .point-10 {
+	top: 300px;
+	left: 450px;
 }
 
 .game-secret-box {
-    top: 40%;
-    left: 10%;
+	top: 40%;
+	left: 10%;
 }
 
 .game-secret-box-buttons {
-    align-items: center;
+	align-items: center;
 }
 
 .game-win {
-    top: 35%;
-    left: 43%;
+	top: 35%;
+	left: 43%;
 }
