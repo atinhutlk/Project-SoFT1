@@ -126,6 +126,11 @@ async function intervalGame() {
         return;
     }
 
+    if (isWon) {
+        showElement("game-win");
+        return;
+    }
+
     const ap = await service.airportInRange({ icao: currentAirportCode, airports: allAirports, playerRange: range });
     if (ap.length === 0) {
         gameOver();

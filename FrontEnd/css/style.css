@@ -36,10 +36,11 @@ header {
 header,
 .game,
 .player-resources,
-.intro,
+
 .game-destination,
 .game-secret-box,
-.game-win {
+.game-win,
+.game-lost {
 	display: flex;
 }
 
@@ -64,7 +65,8 @@ a {
 .intro,
 .game-destination,
 .game-secret-box,
-.game-win {
+.game-win,
+.game-lost {
 	flex-direction: column;
 	align-items: center;
 	/*border: solid 3px black;*/
@@ -74,6 +76,7 @@ body {
 	background-color: #e3d6ab;
 	text-align: center;
 }
+
 
 .game {
 	flex-direction: column;
@@ -91,6 +94,12 @@ h2 {
 .player-resources p {
 	text-align: center;
 	font-size: 30px;
+}
+
+.intro {
+	position: absolute;
+	top: 38%;
+	left: 40%;
 }
 
 /*fading effect*/
@@ -131,7 +140,8 @@ input {
 
 .game-resource-update,
 .game-secret-box,
-.game-win {
+.game-win,
+.game-lost {
 	position: absolute;
 }
 
@@ -222,9 +232,13 @@ input {
 
 .game-secret-box-buttons {
 	align-items: center;
+	margin: 3px;
 }
 
-.game-win {
+.game-win,
+.game-lost {
 	top: 35%;
 	left: 43%;
 }
+
+
