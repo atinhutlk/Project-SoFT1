@@ -23,6 +23,9 @@
             href="../css/style.css" />
     </head>
     <body>
+        <header>
+            <h1>National treasure</h1>
+        </header>
         <div
             id="sprinner"
             class="d-none d-flex align-items-center justify-content-center vh-100 position-fixed"
@@ -48,6 +51,11 @@
                     <p class="money"></p>
                 </div>
 
+                <div class="player-airport">
+                    <h2>Airport Name</h2>
+                    <p class="airport-name"></p>
+                </div>
+
                 <div class="player-icao">
                     <h2>ICAO</h2>
                     <p class="icao"></p>
@@ -58,10 +66,6 @@
                     <p class="range"></p>
                 </div>
 
-                <div class="player-airport">
-                    <h2>Airport Name</h2>
-                    <p class="airport-name"></p>
-                </div>
             </div>
 
             <!-- Game Introduction -->
@@ -133,7 +137,7 @@
                         <label for="icao-code">Select destination ICAO:</label>
                         <input
                             id="icao-code"
-                            placeholder="Enter destination icao" /><br>
+                            placeholder="Enter ICAO code" /><br><br>
                         <input
                             type="submit"
                             class="submit-button"
@@ -149,7 +153,7 @@
                     You have arrived at
                     <span id="arrivedAirportName">*name of the airport*</span>. Do you want to open secret box for 100
                     EUR or 50 km range?
-                </h2>
+                </h2><br>
                 <button
                     id="money"
                     class="game-secret-box-buttons">
@@ -169,7 +173,7 @@
 
             <!-- Game Win -->
             <div class="game-win fadeOut">
-                <h2>You win!</h2>
+                <h2 class="win">You win!</h2><br>
                 <button class="restart-button">Restart</button>
             </div>
 

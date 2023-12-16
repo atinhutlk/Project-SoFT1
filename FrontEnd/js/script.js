@@ -127,7 +127,8 @@ async function intervalGame() {
     }
 
     if (isWon) {
-        showElement("game-win");
+        gameOver();
+        isWon = false;
         return;
     }
 
